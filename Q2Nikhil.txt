@@ -1,0 +1,116 @@
+
+#include<string>
+#include<iostream>
+#include<string>
+using namespace std;
+
+int findspace(string input, int &k,int sz) {
+	for (; k < sz; k++) {
+		if (input[k] == 32)
+			break;
+	}
+	return k;
+}
+
+string in2(string a,int s,int e) {
+	string g;
+	int y = s;
+	for (; s <=e; s = s + 2) {
+		g.push_back(a[s]);
+	}
+	s = y+1;
+	for (; s <=e; s = s + 2) {
+		g.push_back(a[s]);
+	}
+	return g;
+}
+
+string in1(string a, int s, int e) {
+	string g=a.substr(s,e-s);
+	int y = s;
+	int w = 0;
+	for (; s <= e; s = s + 2) {
+		g[w]=a[s];
+		w++;
+	}
+	s = y + 1;
+	int u = e-s;
+	for (; s < e; s = s + 2) {
+		g[u]=a[s];
+		u--;
+	}
+	return g;
+}
+
+char* JumbleWords(char* input1, int input2) {
+	char* ans=input1;
+	string h=input1;
+	int sz = h.size();
+	string j;
+	int k=0;
+	vector<int>f;
+	while (k < sz) {
+		int a=findspace(h, k,sz);
+		f.push_back(a);
+		k++;
+	}
+	int loop = f.size();
+	f.pop_back();
+
+	if (input2 == 2) {
+		int s = 0;
+		for (int i = 0; i < loop; i++) {
+			int e;
+			if (i == loop - 1)
+				e = sz - 1;
+			else
+				e = f[i];
+			j+=in2(h,s,e);
+			s = e + 1;
+		}
+	}
+
+	if (input2 == 1) {
+		int s = 0;
+		for (int i = 0; i < loop; i++) {
+			int e;
+			if (i == loop - 1)
+				e = sz;
+			else
+				e = f[i];
+			j += in1(h, s, e);
+			if(i!=loop-1)
+			   j.push_back(' ');
+			s = e + 1;
+		}
+	}
+	
+	int js = j.size();
+	char p[22 + 1];
+	strcpy_s(p, j.c_str());
+	char* t = p;
+	cout << t << "\n";
+	return t;
+}
+
+
+int main() {
+
+	string s="project based learning";
+	getline(cin, s);
+	int k = 1;
+	cin >> k;
+	int sz = s.size();
+	char p[22+1] ;
+	strcpy_s(p, s.c_str());
+	char* st=p;
+	char* ans=p;
+	cout << st<<"\n" ;
+	if (k == 1) 
+		ans = JumbleWords(st, k);
+		
+	if (k == 2) 
+		ans = JumbleWords(st, k);
+
+
+}
